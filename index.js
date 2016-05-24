@@ -98,7 +98,11 @@ class Parser {
       text += this.consumeCharacter();
     }
 
-    return new Node('Text', null, null, text);
+    console.log(text);
+
+    if (text) {
+      return new Node('Text', null, null, text);
+    }
   }
 
   parseAttr() {
@@ -144,8 +148,10 @@ class Parser {
         node = this.parseText();
       }
 
-      nodes.push(node);
-      this.document.nodes.push(node);
+      if (node) {
+        nodes.push(node);
+        this.document.nodes.push(node);
+      }
     }
 
     return nodes;
