@@ -1,6 +1,4 @@
 'use strict';
-var fs = require('fs')
-
 const OPEN_TAG = '<';
 const CLOSE_SLASH = '/';
 const CLOSE_TAG = '>';
@@ -98,8 +96,6 @@ class Parser {
       text += this.consumeCharacter();
     }
 
-    console.log(text);
-
     if (text) {
       return new Node('Text', null, null, text);
     }
@@ -158,12 +154,4 @@ class Parser {
   }
 }
 
-fs.readFile('./example.html', 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err);
-  }
-
-  let p = new Parser(data);
-  p.parse();
-  console.log(p.document);
-});
+module.exports = Parser;
