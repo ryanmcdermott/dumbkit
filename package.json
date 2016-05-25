@@ -12,6 +12,9 @@
     "engine",
     "webkit"
   ],
+  "dependencies": {
+    "pegjs": "0.9.0"
+  },
   "author": "Ryan McDermott",
   "license": "MIT"
 }
