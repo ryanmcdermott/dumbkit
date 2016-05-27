@@ -1,5 +1,5 @@
 'use strict';
-var Parser = require('../html');
+var Parser = require('../src/html');
 var fs = require('fs');
 
 fs.readFile('./example.html', 'utf8', function (err,data) {
@@ -8,6 +8,6 @@ fs.readFile('./example.html', 'utf8', function (err,data) {
   }
 
   let p = new Parser(data);
-  p.parse();
-  console.log(p.document);
+  let document = p.parse();
+  console.log(document);
 });
