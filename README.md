@@ -1,7 +1,7 @@
 # dumbkit
 
 ## What is it?
-`dumbkit` is an experiment to make an HTML/CSS parser in JavaScript and output a render to a custom rendering engine (either PNG display or WebGL potentially).
+`dumbkit` is an experiment to make a very simple browser engine in JavaScript.
 
 ## Requirements
 Node 5.x or greater.
