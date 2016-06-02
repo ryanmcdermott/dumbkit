@@ -1,5 +1,6 @@
 'use strict';
 var htmlParser = require('../lib/parsers/html');
+var cssParser = require('../lib/parsers/css');
 
 class Node {
   constructor(name, attributes, children, contents) {
@@ -24,9 +25,9 @@ class Document {
 }
 
 class Parser {
-  constructor(data) {
-    this.data = data;
+  constructor() {
     this.document = new Document();
+    this.styles;
   }
 
   buildNode(content, parent) {
@@ -50,8 +51,8 @@ class Parser {
     });
   }
 
-  parse() {
-    var nodes = htmlParser.parse(this.data);
+  parseHTML(data) {
+    var nodes = htmlParser.parse(data);
     if (nodes.length && nodes[0].content) {
       let node = new Node(nodes[0].name, [], [], null);
       this.buildNode(nodes[0].content, node);
@@ -61,6 +62,11 @@ class Parser {
     }
 
     return this.document;
+  }
+
+  parseCSS(data) {
+    this.styles = cssParser.parse(data);
+    return this.styles;
   }
 }
 

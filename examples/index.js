@@ -2,12 +2,27 @@
 var Parser = require('../src/html');
 var fs = require('fs');
 
-fs.readFile('./example.html', 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err);
-  }
+var html;
+var css;
 
-  let p = new Parser(data);
-  let document = p.parse();
-  console.log(document);
+var htmlPromise = new Promise(function (resolve, reject) {
+  fs.readFile('./example.html', 'utf8', function (err, data) {
+    html = data;
+    resolve();
+  });
+});
+
+var cssPromise = new Promise(function (resolve, reject) {
+  fs.readFile('./example.css', 'utf8', function (err, data) {
+    css = data;
+    resolve();
+  });
+});
+
+Promise.all([htmlPromise, cssPromise]).then(function () {
+  let p = new Parser();
+  let document = p.parseHTML(html);
+  let styles = p.parseCSS(css);
+}).catch(function (err) {
+  console.log(err);
 });
