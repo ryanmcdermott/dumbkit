@@ -1,15 +1,19 @@
-var Parser = require('./html');
+'use strict';
+var html = require('./html');
+var css = require('./css');
 
 class Dumbkit {
-  constructor(html, css) {
-    this.html = html;
-    this.css = css;
+  constructor() {
+    this.html = new html();
+    this.css = new css();
   }
 
-  parse() {
-    let p = new Parser(this.html);
-    p.parse();
-    this.document = p.document;
+  parseHTML(data) {
+    return this.html.parse(data);
+  }
+
+  parseCSS(data) {
+    return this.css.parse(data);
   }
 }
 

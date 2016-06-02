@@ -1,5 +1,5 @@
 'use strict';
-var Parser = require('../src/html');
+var Dumbkit = require('../src/');
 var fs = require('fs');
 
 var html;
@@ -20,9 +20,9 @@ var cssPromise = new Promise(function (resolve, reject) {
 });
 
 Promise.all([htmlPromise, cssPromise]).then(function () {
-  let p = new Parser();
-  let document = p.parseHTML(html);
-  let styles = p.parseCSS(css);
+  let d = new Dumbkit();
+  let document = d.parseHTML(html);
+  let styles = d.parseCSS(css);
 }).catch(function (err) {
   console.log(err);
 });
