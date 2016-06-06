@@ -23,6 +23,8 @@ Promise.all([htmlPromise, cssPromise]).then(function () {
   let d = new Dumbkit();
   let document = d.parseHTML(html);
   let styles = d.parseCSS(css);
+
+  console.log(styles);
 }).catch(function (err) {
   console.log(err);
 });
