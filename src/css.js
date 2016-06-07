@@ -7,9 +7,11 @@ const UNITS = {
 };
 
 class Declaration {
-  constructor(name, value) {
+  constructor(name, value, unit, important) {
     this.name = name;
     this.value = value;
+    this.unit = unit;
+    this.important = important;
   }
 }
 
@@ -21,10 +23,10 @@ class Stylesheet {
 
 class Selector {
   // `class` is a reserved keyword, so use `cl` instead.
-  constructor(tagName, id, cl) {
-    this.tagName = tagName;
+  constructor(element, id, cl) {
+    this.element = element;
     this.id = id;
-    this.cl = cl;
+    this.cl = cl || [];
   }
 }
 
@@ -36,11 +38,21 @@ class Rule {
 }
 
 class Parser {
-  constructor() {}
+  constructor() {
+    this.stylesheet = new Stylesheet();
+  }
 
-  buildNode(rules) {
-    rules.forEach(rule => {
-      console.log(rule);
+  buildNode(parsedRules) {
+    parsedRules.forEach(parsedRule => {
+      let rule = new Rule();
+      parsedRule.declarations.forEach(declaration => {
+        rule.declarations.push(new Declaration(declaration.name, declaration.value.value, declaration.value.unit, declaration.important));
+      });
+
+      parsedRule.selectors.forEach(parsedSelector => {
+        console.log(parsedSelector);  
+      });
+
     });
   }
 
@@ -50,6 +62,7 @@ class Parser {
       this.buildNode(css.rules);
     }
 
+    // return this.stylesheet;
     return css;
   }
 }

@@ -4,6 +4,10 @@ html {
   background: #ffffff;
 }
 
+h1 {
+  color: #ff0000;
+}
+
 #main-id {
   color: #0000ff;
 }
@@ -17,4 +21,8 @@ html {
   border-color: #ff0000;
   background-color: #00ff00;
   border-width: 5px;
+}
+
+.box .test .test2 {
+  padding: 20px;
 }
