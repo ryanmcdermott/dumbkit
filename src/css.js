@@ -42,17 +42,43 @@ class Parser {
     this.stylesheet = new Stylesheet();
   }
 
+  buildSelectors(parsedSelector, rule) {
+    if (parsedSelector.right) {
+      if (parsedSelector.combinator) {
+        this.buildSelectors(parsedSelector.right, rule);
+      }
+      else {
+        let selector = new Selector(parsedSelector.right.element, parsedSelector.right.qualifiers[0].id, 
+                                    parsedSelector.right.qualifiers[0].class);
+        
+        rule.selectors.push(selector);
+      }
+    }
+
+    if (parsedSelector.left) {
+      if (parsedSelector.combinator) {
+        this.buildSelectors(parsedSelector.left, rule);
+      }
+      else {
+        let selector = new Selector(parsedSelector.left.element, parsedSelector.left.qualifiers[0].id, 
+                                    parsedSelector.left.qualifiers[0].class);
+
+        rule.selectors.push(selector);
+      }
+    }
+  }
+
   buildNode(parsedRules) {
     parsedRules.forEach(parsedRule => {
       let rule = new Rule();
       parsedRule.declarations.forEach(declaration => {
-        rule.declarations.push(new Declaration(declaration.name, declaration.value.value, declaration.value.unit, declaration.important));
+        rule.declarations.push(new Declaration(declaration.name, declaration.value.value, 
+                                              declaration.value.unit, declaration.important));
       });
 
       parsedRule.selectors.forEach(parsedSelector => {
-        console.log(parsedSelector);  
+        this.buildSelectors(parsedSelector, rule);
       });
-
     });
   }
 
