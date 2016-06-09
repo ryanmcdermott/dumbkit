@@ -22,9 +22,10 @@ var cssPromise = new Promise(function (resolve, reject) {
 Promise.all([htmlPromise, cssPromise]).then(function () {
   let d = new Dumbkit();
   let document = d.parseHTML(html);
-  let styles = d.parseCSS(css);
+  let css= d.parseCSS(css);
+  let style = d.buildStyleTree();
 
-  console.log(styles);
+  console.log(style);
 }).catch(function (err) {
   console.log(err);
 });

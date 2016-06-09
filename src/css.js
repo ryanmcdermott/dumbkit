@@ -66,6 +66,8 @@ class Parser {
         rule.selectors.push(selector);
       }
     }
+
+    this.stylesheet.rules.push(rule);
   }
 
   buildNode(parsedRules) {
@@ -88,6 +90,7 @@ class Parser {
       this.buildNode(css.rules);
     }
 
+    console.log(this.stylesheet.rules);
     // return this.stylesheet;
     return css;
   }
